@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/login', function(req, res){
-    res.render('login');
+    res.render('login', {error: ""});
 });
 
 router.post('/login', function(req, res, next){
@@ -26,7 +26,7 @@ router.post('/login', function(req, res, next){
 
     User.login(email, pass, function(err, user, hash){
         if(err){
-            res.status(400).send(err);
+            res.render('login', {error: err});
         }else{
             res.cookie('u', hash);
             res.redirect("/");

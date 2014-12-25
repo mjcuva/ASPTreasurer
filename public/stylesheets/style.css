@@ -1,8 +1,35 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@font-face {
+    font-family: HNUL;
+    src: url("/stylesheets/HelveticaNeue/UltraLight.otf") format("opentype");
 }
 
-a {
-  color: #00B7FF;
+#nav {
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #4A4A4A;
+    padding-left: 25px;
+    box-shadow: 0px 0px 3px black;
+}
+
+#title{
+    line-height: 50px;
+    font-size: 25px;
+    font-weight: lighter;
+    font-family: HNUL;
+    color: white;
+}
+
+.right a{
+    position: absolute;
+    right: 50px;
+    top: 0;
+    line-height: 50px;
+    color: white;
+    font-family: Helvetica;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: lighter;
 }
