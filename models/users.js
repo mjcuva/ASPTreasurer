@@ -32,10 +32,10 @@ UserSchema.statics.createAccount = function(u, cb){
 }
 
 UserSchema.statics.login = function(email, pass, cb){
-    this.findByEmail(email, function(err, user){
-        user = user[0];
-        if(err){ cb("Incorrect login", null, null) }
-        if(passwordHash.verify(pass, user.pw_hash)){
+    this.findByEmail(email, function(err, users){
+        user = users[0];
+        if(err || users.length === 0){ cb("Incorrect login", null, null) }
+        else if(passwordHash.verify(pass, user.pw_hash)){
             cb(null, user, user._id);
         }else{
             cb("Incorrect login", null, null);
