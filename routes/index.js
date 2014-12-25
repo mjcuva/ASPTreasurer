@@ -34,6 +34,11 @@ router.post('/login', function(req, res, next){
     });
 });
 
+router.get('/logout', function(req, res, next){
+    res.clearCookie('u');
+    res.redirect('/');
+});
+
 router.get('/users', function(req, res, next){
     User.find(function(err, users){
         if(err){ return next(err); }
