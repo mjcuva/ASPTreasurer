@@ -5,21 +5,25 @@
 
 #nav {
     height: 50px;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #4A4A4A;
+    background-color: #C41E3A;
     box-shadow: 0px 0px 3px black;
 }
 
-#title{
+.title{
     line-height: 50px;
     font-size: 25px;
     font-weight: lighter;
     font-family: HNUL;
+
+}
+
+#nav .title{
     color: white;
-    margin-left: 25px;
+    margin-left: 25px; 
 }
 
 #logout{
@@ -32,4 +36,63 @@
     font-size: 15px;
     text-decoration: none;
     font-weight: lighter;
+}
+
+#main {
+    margin-top: 50px;
+}
+
+#graph{
+    margin-top: 20px;
+    height: 400px;
+    background-color: lightgray;
+}
+
+#transactions .title{
+    padding-left: 25px;
+    font-size: 30px;
+}
+
+#transactions table{
+    margin-left: 50px;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#transactions th{
+    font-size: 18px;
+    color: grey;
+    font-family: HNUL;
+}
+
+#transactions tr {
+    border: solid;
+    border-width: 1px 0;
+    border-color: lightgray;
+}
+
+#transactions tr:first-child {
+  border-top: none;
+}
+
+#transactions tr:last-child {
+  border-bottom: none;
+}
+
+#transactions td {
+    padding: 10px;
+}
+
+#date {
+    width: 100px;
+}
+
+#cost{
+    width: 100px;
+}
+
+#position {
+    width: 200px;
 }
