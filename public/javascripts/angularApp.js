@@ -1,21 +1,22 @@
-var myapp = angular.module('asp-budget', []);
+var budgetApp = angular.module('asp-budget', ['ngRoute', 'ASPControllers']);
 
-myapp.controller('mainCtrl', ['$scope', '$http', function($scope, $http){
-    
-    $http.get('/api/currentuser').success(function(data, status, headers, config){
-        $scope.user = data;
-
-        $scope.authorized = function(){
-            if($scope.user.position === "Treasurer" || $scope.user.position === 'President' || $scope.user.position === 'Vice President'){
-                return true;
-            }else{
-                return false;
-            }
-        }
+budgetApp.config(['$routeProvider', '$locationProvider',
+  function($routeProvider, $locationProvider) {
+    $routeProvider.
+    when('/', {
+        templateUrl: 'partials/main.html',
+        controller: 'mainCtrl'
+    }).
+    when('/budget', {
+        templateUrl: 'partials/budgets.html',
+        controller: 'budgetCtrl'
+    }).
+    otherwise({
+        redirectTo: '/'
     });
 
-    $http.get('/api/transactions').success(function(data, status, headers, config){
-        $scope.transactions = data;
-    });
-
+    $locationProvider.html5Mode(true);
 }]);
+
+
+

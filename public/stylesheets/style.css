@@ -17,12 +17,15 @@ body {
     box-shadow: 0px 0px 3px black;
 }
 
+a.title {
+    text-decoration: none;
+}
+
 .title{
     line-height: 50px;
     font-size: 25px;
     font-weight: lighter;
     font-family: HNUL;
-
 }
 
 #nav .title{
