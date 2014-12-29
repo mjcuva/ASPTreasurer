@@ -11,6 +11,10 @@ budgetApp.config(['$routeProvider', '$locationProvider',
         templateUrl: 'partials/budgets.html',
         controller: 'budgetCtrl'
     }).
+    when('/users', {
+        templateUrl: 'partials/users.html',
+        controller: 'usersCtrl'
+    }).
     otherwise({
         redirectTo: '/'
     });

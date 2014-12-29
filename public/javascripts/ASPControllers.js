@@ -1,5 +1,20 @@
 var ASPControllers = angular.module('ASPControllers', []);
 
+var positions = ['President',
+                 'Vice President',
+                 'Treasurer',
+                 'Recruitment',
+                 'Social',
+                 'Scholarship',
+                 'Philantropy',
+                 'Service',
+                 'Fundraising',
+                 'Family Relations',
+                 'Secretary',
+                 'Sergeant at Arms',
+                 'Marshall',
+                 'Membership Education'];
+
 ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http){
     
     $http.get('/api/currentuser').success(function(data, status, headers, config){
@@ -22,5 +37,9 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http
 
 
 ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $http){
+
+}]);
+
+ASPControllers.controller('usersCtrl', ['$scope', '$http', function($scope, $http){
 
 }]);
