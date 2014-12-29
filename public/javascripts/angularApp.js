@@ -1,7 +1,6 @@
 var myapp = angular.module('asp-budget', []);
 
 myapp.controller('mainCtrl', ['$scope', '$http', function($scope, $http){
-    $scope.test = "TEST"
     
     $http.get('/api/currentuser').success(function(data, status, headers, config){
         $scope.user = data;
