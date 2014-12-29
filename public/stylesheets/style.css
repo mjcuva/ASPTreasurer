@@ -3,6 +3,10 @@
     src: url("/stylesheets/HelveticaNeue/UltraLight.otf") format("opentype");
 }
 
+body {
+    font-family: 'Ubuntu', sans-serif;
+}
+
 #nav {
     height: 50px;
     position: fixed;
@@ -26,16 +30,29 @@
     margin-left: 25px; 
 }
 
-#logout{
+.right a{
     position: absolute;
-    right: 25px;
     top: 0;
     line-height: 50px;
     color: white;
-    font-family: Helvetica;
     font-size: 15px;
     text-decoration: none;
-    font-weight: lighter;
+    width: 100px;
+    text-align: center;
+    border-right: 1px solid #9E1934;
+}
+
+#logout{
+    right: 0px;
+}
+
+#editBudget{
+    right: 100px; 
+}
+
+#editUsers {
+    right: 200px;
+    border-left: 1px solid #9E1934;
 }
 
 #main {
@@ -58,7 +75,6 @@
     width: 100%;
     text-align: left;
     border-collapse: collapse;
-    font-family: 'Ubuntu', sans-serif;
 }
 
 #transactions th{
@@ -95,4 +111,8 @@
 
 #position {
     width: 200px;
+}
+
+#noTrans {
+    margin-left: 40px;
 }

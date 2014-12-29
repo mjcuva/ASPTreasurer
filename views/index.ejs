@@ -7,39 +7,36 @@
     <script src='/javascripts/angular.js'></script>
     <script src='/javascripts/angularApp.js'></script>
   </head>
-  <body>
+  <body ng-app='asp-budget' ng-controller='mainCtrl'>
     <div id='nav'>
         <div class='title'>ΑΣΦ - Rho Colony</div>
         <div class='right'>
+            <a id='editUsers' ng-show="authorized()" href='/users'>Edit Users</a>
+            <a id='editBudget' ng-show="authorized()" href='/budget'>Edit Budget</a>
             <a id='logout' href='/logout'>Logout</a>
         </div>
     </div>
 
-    <div id='main' ng-app='asp-budget' ng-controller='mainCtrl'>
+    <div id='main'>
       <div id='graph'>
       </div>
       <div id='transactions'>
         <h1 class='title'>Transactions</h1>
-        <table style='width:100%'>
+        <table style='width:100%' ng-show='transactions.length > 0'>
           <tr>
             <th id='date'>Date</th>
             <th id='cost'>Cost</th>
             <th id='position'>Position</th>
             <th id='description'>Description</th>
           </tr>
-          <tr>
-            <td>12/28</td>
-            <td>$50</td>
-            <td>Family Relations</td>
-            <td>Holiday Cards</td>
-          </tr>
-          <tr>
-            <td>11/30</td>
-            <td>$2000</td>
-            <td>Social</td>
-            <td>Zelo Dinner</td>
+          <tr ng-repeat='transaction in transactions'>
+            <td>{{transaction.date}}</td>
+            <td>${{transaction.cost}}</td>
+            <td>{{transaction.position}}</td>
+            <td>{{transaction.description}}</td>
           </tr>
         </table>
+        <p id='noTrans' ng-show='transactions.length == 0'>Nothing has been spent yet!</p>
       </div>
     </div>
   </body>
