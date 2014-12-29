@@ -31,10 +31,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', api);
 app.use('/login', login);
+
+// Route for logout
 app.get('/logout', function(req, res, next){
     res.clearCookie('u');
     res.redirect('/');
 });
+
+// Catchall so Angular can do the rest of the routing
 app.all("/*", function(req, res, next) {
 
     mongoose.model('User').LoggedIn(req.cookies.u, function(loggedIn){
