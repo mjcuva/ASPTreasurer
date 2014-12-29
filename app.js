@@ -10,7 +10,10 @@ mongoose.connect('mongodb://localhost/asp');
 require('./models/users');
 require('./models/transactions');
 
-var routes = require('./routes/index');
+var api = require('./routes/api');
+var login = require('./routes/login');
+
+// var routes = require('./routes/')
 
 var app = express();
 
@@ -26,8 +29,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/api', api);
+app.use('/login', login);
+app.get('/logout', function(req, res, next){
+    res.clearCookie('u');
+    res.redirect('/');
+});
+app.all("/*", function(req, res, next) {
+
+    mongoose.model('User').LoggedIn(req.cookies.u, function(loggedIn){
+        if(loggedIn){
+            res.sendFile("index.html", { root: __dirname + "/views" });
+        }else{
+            res.redirect('login');
+        }
+    });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

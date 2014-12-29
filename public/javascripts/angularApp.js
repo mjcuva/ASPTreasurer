@@ -3,7 +3,7 @@ var myapp = angular.module('asp-budget', []);
 myapp.controller('mainCtrl', ['$scope', '$http', function($scope, $http){
     $scope.test = "TEST"
     
-    $http.get('/currentuser').success(function(data, status, headers, config){
+    $http.get('/api/currentuser').success(function(data, status, headers, config){
         $scope.user = data;
 
         $scope.authorized = function(){
@@ -15,7 +15,7 @@ myapp.controller('mainCtrl', ['$scope', '$http', function($scope, $http){
         }
     });
 
-    $http.get('/transactions').success(function(data, status, headers, config){
+    $http.get('/api/transactions').success(function(data, status, headers, config){
         $scope.transactions = data;
     });
 
