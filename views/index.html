@@ -16,7 +16,8 @@
         <div class='right'>
             <a id='editUsers' ng-show="authorized()" href='/users'>Edit Users</a>
             <a id='editBudget' ng-show="authorized()" href='/budget'>Edit Budget</a>
-            <a id='logout' href='/logout'>Logout</a>
+            <!-- Hack to get around angular routing -->
+            <a id='logout' onclick='window.location.href="/logout"'>Logout</a>
         </div>
     </div>
 

@@ -1,0 +1,17 @@
+<div id='main'>
+  <div id='usersTable'>
+    <h1 class='title'>Users</h1>
+    <table style='width:100%;'>
+      <tr>
+        <th id='username'>Name</th>
+        <th id='userposition'>Position</th>
+        <th id='useremail'>Email</th>
+      </tr>
+      <tr ng-repeat='user in users'>
+        <td>{{user.name}}</td>
+        <td>{{user.position}}</td>
+        <td>{{user.email}}</td>`
+      </tr>
+    </table>
+  </div>
+</div>

@@ -35,4 +35,21 @@ router.post('/users/create', function(req, res, next){
     });
 });
 
+router.get('/users', function(req, res, next){
+    User.LoggedIn(req.cookies.u, function(loggedin){
+        if(loggedin){
+            User.find({}, 'email name position', function(err, users){
+                if(err){
+                    res.send(err);
+                }else{
+                    res.json(users);
+                }
+            });
+        }else{
+            res.send("Not logged in");
+        }
+    });
+
+})
+
 module.exports = router;

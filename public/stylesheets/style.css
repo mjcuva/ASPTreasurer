@@ -49,6 +49,10 @@ a.title {
     right: 0px;
 }
 
+#logout:hover{
+    cursor: pointer;
+}
+
 #editBudget{
     right: 100px; 
 }
@@ -68,39 +72,39 @@ a.title {
     background-color: lightgray;
 }
 
-#transactions .title{
+.title{
     padding-left: 25px;
     font-size: 30px;
 }
 
-#transactions table{
+table{
     margin-left: 50px;
     width: 100%;
     text-align: left;
     border-collapse: collapse;
 }
 
-#transactions th{
+th{
     font-size: 18px;
     color: grey;
     font-family: HNUL;
 }
 
-#transactions tr {
+tr {
     border: solid;
     border-width: 1px 0;
     border-color: lightgray;
 }
 
-#transactions tr:first-child {
+tr:first-child {
   border-top: none;
 }
 
-#transactions tr:last-child {
+tr:last-child {
   border-bottom: none;
 }
 
-#transactions td {
+td {
     padding: 10px;
 }
 
@@ -118,4 +122,16 @@ a.title {
 
 #noTrans {
     margin-left: 40px;
+}
+
+#username {
+    width: 200px;
+}
+
+#userposition {
+    width: 200px;
+}
+
+#useremail {
+    width: 200px;
 }

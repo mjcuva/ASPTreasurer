@@ -41,5 +41,9 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
 }]);
 
 ASPControllers.controller('usersCtrl', ['$scope', '$http', function($scope, $http){
+    $scope.users = [];
 
+    $http.get('/api/users').success(function(data, status, header, config){
+        $scope.users = data;
+    });
 }]);
