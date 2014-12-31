@@ -38,6 +38,10 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http
 
 ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $http){
     $scope.budgets = [];
+
+    $http.get('/api/budgets').success(function(data, status, header, config){
+        $scope.budgets = data;
+    });
 }]);
 
 ASPControllers.controller('usersCtrl', ['$scope', '$http', function($scope, $http){

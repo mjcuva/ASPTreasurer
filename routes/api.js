@@ -4,6 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Transaction = mongoose.model('Transaction');
+var Budget = mongoose.model('Budget');
 
 router.get('/currentuser', function(req, res, next){
     User.findById(req.cookies.u, function(err, user){
@@ -15,6 +16,8 @@ router.get('/currentuser', function(req, res, next){
     });
 });
 
+
+// Transactions
 router.get('/transactions', function(req, res, next){
     Transaction.find(function(err, transactions){
         if(err){
@@ -25,7 +28,9 @@ router.get('/transactions', function(req, res, next){
     })
 });
 
-router.post('/users/create', function(req, res, next){
+
+// Users
+router.post('/users', function(req, res, next){
     User.createAccount(req.body, function(err, user, hash){
         if(err){ res.send(err); }
         else{
@@ -50,6 +55,47 @@ router.get('/users', function(req, res, next){
         }
     });
 
-})
+});
+
+
+// Budgets
+
+router.get('/budgets', function(req, res, next){
+    Budget.find(function(err, budgets){
+        if(err){
+            res.send(err);
+        }else{
+            res.json(budgets);
+        }
+    });
+});
+
+router.post('/budgets', function(req, res, next){
+    var pos = req.body.position;
+    var sem = req.body.semester;
+    Budget.findOne({position: pos, semester: sem}, function(err, budget){
+        if(budget === null){
+            // add budget
+            console.log(req.body);
+            var newBudget = new Budget(req.body);
+            newBudget.save(function(err, createdBudget){
+                if(err){
+                    res.send(err);
+                }else{
+                    res.json(createdBudget);
+                }
+            });
+        }else{
+            budget.amount = req.body.amount;
+            budget.save(function(err){
+                if(err){
+                    res.send(err);
+                }else{
+                    res.json(budget);
+                }
+            });
+        }
+    });
+});
 
 module.exports = router;
