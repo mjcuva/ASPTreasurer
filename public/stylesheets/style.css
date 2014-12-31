@@ -108,6 +108,15 @@ td {
     padding: 10px;
 }
 
+td a {
+    text-decoration: none;
+    color: #C41E3A;
+}
+
+td input, td select {
+    font-size: 16px;
+}
+
 #date {
     width: 100px;
 }
@@ -139,4 +148,28 @@ td {
 #budgetMain{
     margin: 100px auto;
     width: 50%;
+}
+
+#budgetTitle{
+    display: inline-block;
+}
+
+#addBudget {
+    display: inline;
+    margin-left: 5px;
+    border: 0px;
+    height: 30px;
+    background-color: white;
+    font-family: HNUL;
+    font-size: 25px;
+    cursor: pointer;
+    color: #C41E3A;
+}
+
+#budgetPosition {
+    width: 400px;
+}
+
+#budgetAmount{
+    width: 400px;
 }

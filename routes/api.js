@@ -74,9 +74,7 @@ router.post('/budgets', function(req, res, next){
     var pos = req.body.position;
     var sem = req.body.semester;
     Budget.findOne({position: pos, semester: sem}, function(err, budget){
-        if(budget === null){
-            // add budget
-            console.log(req.body);
+        if(budget === null && req.body.amount != 0){
             var newBudget = new Budget(req.body);
             newBudget.save(function(err, createdBudget){
                 if(err){
@@ -85,15 +83,21 @@ router.post('/budgets', function(req, res, next){
                     res.json(createdBudget);
                 }
             });
-        }else{
-            budget.amount = req.body.amount;
-            budget.save(function(err){
-                if(err){
-                    res.send(err);
-                }else{
-                    res.json(budget);
-                }
-            });
+        }else if(budget != null){
+            if(req.body.amount == 0){
+                budget.remove(function(){
+                    res.send('Removed');
+                });
+            }else{
+                budget.amount = req.body.amount;
+                budget.save(function(err){
+                    if(err){
+                        res.send(err);
+                    }else{
+                        res.json(budget);
+                    }
+                });
+            }
         }
     });
 });

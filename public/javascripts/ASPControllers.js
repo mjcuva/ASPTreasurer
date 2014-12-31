@@ -37,10 +37,30 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http
 
 
 ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $http){
+    $scope.positions = positions;
+
     $scope.budgets = [];
+
+    $scope.addBudget = function(){
+        $scope.budgets.push({"position": positions[0], "amount":0, editing: true, "semester": "Spring 2015"});
+    }
+
+    $scope.edit = function(budget){
+        budget.editing = true;
+    }
+
+    $scope.save = function(budget){
+        budget.editing = false;
+        $http.post('/api/budgets', budget).success(function(data, status, headers, config){
+            console.log(data);
+        });
+    }
 
     $http.get('/api/budgets').success(function(data, status, header, config){
         $scope.budgets = data;
+        $scope.budgets.forEach(function(b){
+            b.editing = false;
+        });
     });
 }]);
 
