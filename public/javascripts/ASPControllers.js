@@ -37,7 +37,7 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http
 
 
 ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $http){
-
+    $scope.budgets = [];
 }]);
 
 ASPControllers.controller('usersCtrl', ['$scope', '$http', function($scope, $http){

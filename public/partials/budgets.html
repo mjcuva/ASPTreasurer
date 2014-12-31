@@ -1,0 +1,16 @@
+<div id='main'>
+  <div id='budgetTable'>
+    <h1 class='title'>Budget</h1>
+    <table style='width:100%;' ng-show='budgets.length > 0'>
+      <tr>
+        <th id='budgetPosition'>Position</th>
+        <th id='budgetAmount'>Amount</th>
+      </tr>
+      <tr ng-repeat='budget in budgets'>
+        <td>{{budget.position}}</td>
+        <td>${{budget.amount}}</td>
+      </tr>
+    </table>
+    <p id='noBud' ng-show='budgets.length==0'>No budgets have been set yet.</p>
+  </div>
+</div>

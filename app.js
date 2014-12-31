@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/asp');
 require('./models/users');
 require('./models/transactions');
+require('./models/budgets');
 
 var api = require('./routes/api');
 var login = require('./routes/login');
