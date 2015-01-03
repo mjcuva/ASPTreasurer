@@ -26,6 +26,7 @@ a.title {
     font-size: 25px;
     font-weight: lighter;
     font-family: HNUL;
+    display: inline-block;
 }
 
 #nav .title{
@@ -78,8 +79,8 @@ a.title {
 }
 
 table{
-    margin-left: 50px;
-    width: 100%;
+    margin:0 auto;
+    width: 80%;
     text-align: left;
     border-collapse: collapse;
 }
@@ -94,6 +95,7 @@ tr {
     border: solid;
     border-width: 1px 0;
     border-color: lightgray;
+    height: 50px;
 }
 
 tr:first-child {
@@ -108,25 +110,30 @@ td {
     padding: 10px;
 }
 
-td a {
+a {
     text-decoration: none;
     color: #C41E3A;
 }
 
 td input, td select {
     font-size: 16px;
+    width: 90%;
 }
 
 #date {
-    width: 100px;
+    width: 200px;
 }
 
 #cost{
-    width: 100px;
+    width: 200px;
 }
 
 #position {
     width: 200px;
+}
+
+#description{
+    min-width: 200px;
 }
 
 #noTrans {
@@ -150,11 +157,7 @@ td input, td select {
     width: 50%;
 }
 
-#budgetTitle{
-    display: inline-block;
-}
-
-#addBudget {
+#addBudget, #addTransaction {
     display: inline;
     margin-left: 5px;
     border: 0px;

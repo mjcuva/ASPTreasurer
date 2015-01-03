@@ -3,14 +3,22 @@
     <h1 class='title' id='budgetTitle'>Budget | </h1><button id='addBudget' ng-click="addBudget()">Add New</button>
     <table style='width:100%;' ng-show='budgets.length > 0'>
       <tr>
-        <th id='budgetPosition'>Position</th>
-        <th id='budgetAmount'>Amount</th>
+        <th id='budgetPosition'><a href='#' ng-click='predicate="position"; reverse=!reverse'>Position</a></th>
+        <th id='budgetAmount'><a href='#' ng-click="predicate='amount'; reverse=!reverse">Amount</a></th>
       </tr>
-      <tr ng-repeat='budget in budgets'>
+      <tr ng-repeat='budget in budgets|orderBy:predicate:reverse'>
+
+        <!-- Position -->
         <td ng-hide='budget.editing'>{{budget.position}}</td>
-        <td ng-show='budget.editing'><select ng-model='budget.position' ng-options='p as p for p in positions'></select></td>
+        <td ng-show='budget.editing'>
+          <select ng-model='budget.position' ng-options='p as p for p in positions'></select>
+        </td>
+
+        <!-- Amount -->
         <td ng-hide='budget.editing'>${{budget.amount}}</td>
         <td ng-show='budget.editing'>$<input type='text' ng-model='budget.amount'></td>
+        
+        <!-- Edit/Save -->
         <td ng-hide='budget.editing'><a ng-click='edit(budget)' href='#'>Edit</a></td>
         <td ng-show='budget.editing'><a ng-click='save(budget)' href='#'>Save</td>
       </tr>

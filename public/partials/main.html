@@ -2,19 +2,37 @@
   <div id='graph'>
   </div>
   <div id='transactions'>
-    <h1 class='title'>Transactions</h1>
-    <table style='width:100%' ng-show='transactions.length > 0'>
+    <h1 class='title'>Transactions | </h1><button id='addTransaction' ng-click="addTransaction()">Add New</button>
+    <table ng-show='transactions.length > 0'>
       <tr>
-        <th id='date'>Date</th>
-        <th id='cost'>Cost</th>
-        <th id='position'>Position</th>
-        <th id='description'>Description</th>
+        <th id='date'><a href='#' ng-click='predicate="date";reverse=!reverse'>Date</a></th>
+        <th id='cost'><a href='#' ng-click='predicate="cost";reverse=!reverse'>Cost</a></th>
+        <th id='position'><a href='#' ng-click='predicate="position";reverse=!reverse'>Position</a></th>
+        <th id='description'><a href='#' ng-click='predicate="description";reverse=!reverse'>Description</a></th>
       </tr>
-      <tr ng-repeat='transaction in transactions'>
-        <td>{{transaction.date}}</td>
-        <td>${{transaction.cost}}</td>
-        <td>{{transaction.position}}</td>
-        <td>{{transaction.description}}</td>
+      <tr ng-repeat='transaction in transactions|orderBy:predicate:reverse'>
+
+        <!-- Date -->
+        <td ng-hide = 'transaction.editing'>{{transaction.date | date:'MM-dd'}}</td>
+        <td ng-show = 'transaction.editing'><input type='date' ng-model='transaction.date'></td>
+
+        <!-- Cost -->
+        <td ng-hide = 'transaction.editing'>${{transaction.cost}}</td>
+        <td ng-show='transaction.editing'>$<input type='text' ng-model='transaction.cost'></td>
+
+        <!-- Position -->
+        <td ng-hide = 'transaction.editing'>{{transaction.position}}</td>
+        <td ng-show='transaction.editing'>
+          <select ng-model='transaction.position' ng-options='p as p for p in positions'></select>
+        </td>
+
+        <!-- Description -->
+        <td ng-hide = 'transaction.editing'>{{transaction.description}}</td>
+        <td ng-show = 'transaction.editing'><input type='text' ng-model='transaction.description'></td>
+
+        <!-- Edit/Save -->
+        <td ng-hide = 'transaction.editing'><a ng-click='edit(transaction)' href='#'>Edit</a></td>
+        <td ng-show = 'transaction.editing'><a ng-click='save(transaction)' href='#'>Save</a></td>
       </tr>
     </table>
     <p id='noTrans' ng-show='transactions.length == 0'>Nothing has been spent yet!</p>

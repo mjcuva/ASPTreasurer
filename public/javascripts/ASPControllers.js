@@ -16,9 +16,13 @@ var positions = ['President',
                  'Membership Education'];
 
 ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http){
+
+    $scope.transactions = [];
     
     $http.get('/api/currentuser').success(function(data, status, headers, config){
         $scope.user = data;
+
+        $scope.predicate = 'date';
 
         $scope.authorized = function(){
             if($scope.user.position === "Treasurer" || $scope.user.position === 'President' || $scope.user.position === 'Vice President'){
@@ -31,7 +35,25 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http
 
     $http.get('/api/transactions').success(function(data, status, headers, config){
         $scope.transactions = data;
+        $scope.transactions.forEach(function(t){
+            t.editing = false;
+        });
     });
+
+    $scope.addTransaction = function(){
+        $scope.transactions.push({'cost':0, 'date':new Date(), 'description':'', 'position':positions[0], 'editing':true});
+    }
+
+    $scope.positions = positions;
+
+    $scope.edit = function(transaction){
+        transaction.editing = true;
+    }
+
+    $scope.save = function(transaction){
+        transaction.editing = false;
+        // TODO Save to database - post
+    }
 
 }]);
 
@@ -40,6 +62,8 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
     $scope.positions = positions;
 
     $scope.budgets = [];
+
+    $scope.predicate = 'position';
 
     $scope.addBudget = function(){
         $scope.budgets.push({"position": positions[0], "amount":0, editing: true, "semester": "Spring 2015"});
