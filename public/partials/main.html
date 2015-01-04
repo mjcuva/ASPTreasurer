@@ -33,6 +33,7 @@
         <!-- Edit/Save -->
         <td ng-hide = 'transaction.editing'><a ng-click='edit(transaction)' href='#'>Edit</a></td>
         <td ng-show = 'transaction.editing'><a ng-click='save(transaction)' href='#'>Save</a></td>
+        <td><a ng-click='delete(transaction)' href='#'>Delete</a></td>
       </tr>
     </table>
     <p id='noTrans' ng-show='transactions.length == 0'>Nothing has been spent yet!</p>

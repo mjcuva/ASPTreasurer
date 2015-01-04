@@ -28,6 +28,52 @@ router.get('/transactions', function(req, res, next){
     })
 });
 
+router.post('/transactions', function(req, res, next){
+
+    Transaction.findById(req.body._id, function(err, trans){
+        if(trans === null){
+            var newTrans = new Transaction(req.body);
+            newTrans.save(function(err, createdTrans){
+                if(err){
+                    res.send(err);
+                }else{
+                    res.json(createdTrans);
+                }
+            });
+        }else{
+            trans.cost = req.body.cost;
+            trans.date = req.body.date;
+            trans.description = req.body.description;
+            trans.position = req.body.position;
+            trans.save(function(err){
+                if(err){
+                    res.send(err);
+                }else{
+                    res.json(trans);
+                }
+            });
+        }
+    });
+
+});
+
+router.delete('/transactions/:id', function(req, res, next){
+    console.log(req);
+    Transaction.findById(req.params.id, function(err, trans){
+        if(trans != null){
+            trans.remove(function(err){
+                if(err){
+                    res.send(err);
+                }else{
+                    res.send('Deleted');
+                }
+            });
+        }else{
+            res.send("Doesn't exist");
+        }
+    });
+});
+
 
 // Users
 router.post('/users', function(req, res, next){

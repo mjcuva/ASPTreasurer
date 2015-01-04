@@ -15,14 +15,14 @@ var positions = ['President',
                  'Marshall',
                  'Membership Education'];
 
-ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http){
+ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($scope, $http, $filter){
 
     $scope.transactions = [];
     
     $http.get('/api/currentuser').success(function(data, status, headers, config){
         $scope.user = data;
 
-        $scope.predicate = 'date';
+        $scope.predicate = '-date';
 
         $scope.authorized = function(){
             if($scope.user.position === "Treasurer" || $scope.user.position === 'President' || $scope.user.position === 'Vice President'){
@@ -37,6 +37,7 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http
         $scope.transactions = data;
         $scope.transactions.forEach(function(t){
             t.editing = false;
+            t.date = new Date(t.date);
         });
     });
 
@@ -52,7 +53,20 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', function($scope, $http
 
     $scope.save = function(transaction){
         transaction.editing = false;
-        // TODO Save to database - post
+        $http.post('/api/transactions', transaction).success(function(data, status, headers, config){
+            console.log(data);
+        });
+    }
+
+    $scope.delete = function(transaction){
+        console.log(transaction);
+        $http.delete('/api/transactions/' + transaction._id).success(function(data, status, headers, config){
+            var index = $scope.transactions.indexOf(transaction);
+            if (index > -1) {
+                $scope.transactions.splice(index, 1);
+            }
+            console.log(data);
+        });
     }
 
 }]);
