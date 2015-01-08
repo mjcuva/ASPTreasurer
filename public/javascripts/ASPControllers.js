@@ -100,6 +100,15 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
             b.editing = false;
         });
     });
+    
+    $scope.totalBudget = function(){
+        var total = 0;
+        for(b in $scope.budgets){
+            total += b.amount;
+        }
+        return total;
+    }
+    
 }]);
 
 ASPControllers.controller('usersCtrl', ['$scope', '$http', function($scope, $http){
