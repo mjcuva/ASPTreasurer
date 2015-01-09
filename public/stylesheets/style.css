@@ -69,8 +69,8 @@ a.title {
 
 #graph{
     margin-top: 20px;
-    height: 400px;
-    background-color: lightgray;
+    height: 500px;
+    text-align: center;
 }
 
 .title{
@@ -175,4 +175,49 @@ td input, td select {
 
 #budgetAmount{
     width: 400px;
+}
+
+#dateInput {
+    font-family: Ubuntu;
+}
+
+
+/* Graph CSS */
+circle,
+path {
+  cursor: pointer;
+}
+
+circle {
+  fill: none;
+  pointer-events: all;
+}
+
+#legend {
+  padding: 10px 0 0 3px;
+  position: absolute;
+  left: 50%;
+  margin-left: -600px;
+}
+
+#sequence text, #legend text {
+  font-weight: 600;
+  fill: #fff;
+}
+
+#mouse {
+    position: absolute;
+    font-size: 30px;
+    right: 150px;
+    top: 275px;
+    font-family: hnul;
+    text-align: left;
+}
+
+#info {
+    position: absolute;
+    right: 150px;
+    top: 200px;
+    font-family: hnul;
+    font-size: 40px;
 }
