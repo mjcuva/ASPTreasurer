@@ -69,7 +69,7 @@ a.title {
 
 #graph{
     margin-top: 20px;
-    height: 500px;
+    height: 600px;
     text-align: center;
 }
 
@@ -198,6 +198,7 @@ circle {
   position: absolute;
   left: 50%;
   margin-left: -600px;
+  z-index: -100;
 }
 
 #sequence text, #legend text {
@@ -212,6 +213,7 @@ circle {
     top: 275px;
     font-family: hnul;
     text-align: left;
+    z-index: -100;
 }
 
 #info {
@@ -220,4 +222,5 @@ circle {
     top: 200px;
     font-family: hnul;
     font-size: 40px;
+    z-index: -100;
 }

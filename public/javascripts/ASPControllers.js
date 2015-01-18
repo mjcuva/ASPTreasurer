@@ -13,7 +13,10 @@ var positions = ['President',
                  'Secretary',
                  'Sergeant at Arms',
                  'Marshall',
-                 'Membership Education'];
+                 'Membership Education',
+                 'Alumni',
+                 'Athletic',
+                 'Brotherhood'];
 
 ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($scope, $http, $filter){
 
@@ -39,6 +42,7 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
             t.editing = false;
             t.date = new Date(t.date);
         });
+        $scope.totalSpent = totalTransactions($scope.transactions);
     });
 
     $scope.addTransaction = function(){
@@ -55,6 +59,7 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
         transaction.editing = false;
         $http.post('/api/transactions', transaction).success(function(data, status, headers, config){
             console.log(data);
+            createGraph('#graph');
         });
     }
 
@@ -66,8 +71,15 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
                 $scope.transactions.splice(index, 1);
             }
             console.log(data);
+            createGraph('#graph');
         });
     }
+
+    // Get Budget
+    $http.get('/api/budgets').success(function(data, status, header, config){
+        budgets = data;
+        $scope.totalBudget = totalBudget(budgets);
+    });
 
 }]);
 
@@ -91,6 +103,7 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
         budget.editing = false;
         $http.post('/api/budgets', budget).success(function(data, status, headers, config){
             console.log(data);
+            $scope.total = totalBudget($scope.budgets);
         });
     }
 
@@ -99,15 +112,11 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
         $scope.budgets.forEach(function(b){
             b.editing = false;
         });
+
+        $scope.total = totalBudget($scope.budgets);
     });
-    
-    $scope.totalBudget = function(){
-        var total = 0;
-        for(b in $scope.budgets){
-            total += b.amount;
-        }
-        return total;
-    }
+
+    $scope.total = 0
     
 }]);
 
@@ -118,3 +127,20 @@ ASPControllers.controller('usersCtrl', ['$scope', '$http', function($scope, $htt
         $scope.users = data;
     });
 }]);
+
+totalBudget = function(input){
+    var total = 0;
+    for(i in input){
+        total += parseInt(input[i].amount);
+    }
+    return total;
+}
+
+totalTransactions = function(trans){
+    var total = 0;
+    for(i in trans){
+        total += parseInt(trans[i].cost)
+    }
+    return total;
+}
+

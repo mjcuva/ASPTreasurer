@@ -148,4 +148,31 @@ router.post('/budgets', function(req, res, next){
     });
 });
 
+router.get('/graphdata', function(req, res, next){
+    var main = {'name': "budgetapp", "children":[]};
+    Budget.find(function(err, budgets){
+        Transaction.find(function(err, transactions){
+            for(budgetIndex in budgets){
+                budget = budgets[budgetIndex];
+                var budgetJson = {"name": budget.position, "type":"position", "size":budget.amount, children:[]};
+                var totalUsed = 0;
+                var used = {"name":"Used", "size":totalUsed, "children":[]};
+                for(transactionIndex in transactions){
+                    transaction = transactions[transactionIndex];
+                    if(transaction.position === budget.position){
+                        totalUsed += transaction.cost;
+                        used.children.push({"name":transaction.description, "size":transaction.cost});
+                        used.size = totalUsed;
+                    }
+                }
+                var unused = {"name": "Unused", "size": budget.amount - totalUsed};
+                budgetJson.children.push(unused);
+                budgetJson.children.push(used);
+                main.children.push(budgetJson);
+            }
+            res.json(main);
+        });
+    });
+});
+
 module.exports = router;

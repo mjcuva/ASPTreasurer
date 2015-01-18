@@ -1,7 +1,7 @@
 <div id='main'>
   <div id='graph'>
     <div id='legend'></div>
-    <div id='info'>Total Budget: $1000<br>Amount Spent: $100</div>
+    <div id='info'>Total Budget: ${{totalBudget}}<br>Amount Spent: ${{totalSpent}}</div>
     <div id='mouse'></div>
   </div>
   <div id='transactions'>
@@ -43,4 +43,4 @@
   </div>
 </div>
 
-<script type='text/javascript'>createGraph('#graph', json);</script>
+<script type='text/javascript'>createGraph('#graph');</script>
