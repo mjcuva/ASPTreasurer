@@ -1,0 +1,13 @@
+Users
+	- Registration
+	- Keep track of paid status
+	- Fix positions
+
+Pay dues
+
+Keep track of payments
+	- Users should be able to see their payment history
+
+Bugs:
+	- Adding to angular rows 
+
