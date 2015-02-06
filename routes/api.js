@@ -196,7 +196,7 @@ router.post('/sendemail', function(req, res, next){
     var urlName = encodeURIComponent(name);
     var admin = req.body.admin;
 
-    link = sprintf("http://localhost:3000/login/edit?email=%s&name=%s&admin=%s&src=%s", email, urlName, admin, 'abcdefg');
+    link = sprintf("http://alphasigs.herokuapp.com/login/edit?email=%s&name=%s&admin=%s&src=%s", email, urlName, admin, 'abcdefg');
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
