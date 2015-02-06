@@ -7,16 +7,15 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 
-var uristring =
-process.env.MONGOLAB_URI ||
-process.env.MONGOHQ_URL ||
-'mongodb://localhost/asp';
+var config = require('./config');
+
+var uristring = config.MONGO_MAIN;
 
 mongoose.connect(uristring, function(err, res){
   if (err) {
     console.log ('ERROR connecting to: ' + uristring + '. ' + err);
   } else {
-    console.log ('Succeeded connected to: ' + uristring);
+    console.log ('Succeeded connecting to: ' + uristring);
   }
 });
 
