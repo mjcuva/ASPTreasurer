@@ -152,12 +152,12 @@ td input, td select {
     width: 200px;
 }
 
-#budgetMain{
+#budgetMain, #usersMain{
     margin: 100px auto;
     width: 50%;
 }
 
-#addBudget, #addTransaction {
+#addBudget, #addTransaction, #addUser {
     display: inline;
     margin-left: 5px;
     border: 0px;

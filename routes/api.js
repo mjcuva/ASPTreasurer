@@ -6,6 +6,11 @@ var User = mongoose.model('User');
 var Transaction = mongoose.model('Transaction');
 var Budget = mongoose.model('Budget');
 
+var nodemailer = require('nodemailer');
+var sprintf = require("sprintf-js").sprintf
+
+require('./auth.js');
+
 router.get('/currentuser', function(req, res, next){
     User.findById(req.cookies.u, function(err, user){
         if(err){
@@ -58,7 +63,6 @@ router.post('/transactions', function(req, res, next){
 });
 
 router.delete('/transactions/:id', function(req, res, next){
-    console.log(req);
     Transaction.findById(req.params.id, function(err, trans){
         if(trans != null){
             trans.remove(function(err){
@@ -77,19 +81,28 @@ router.delete('/transactions/:id', function(req, res, next){
 
 // Users
 router.post('/users', function(req, res, next){
-    User.createAccount(req.body, function(err, user, hash){
-        if(err){ res.send(err); }
-        else{
-            res.cookie('u', hash);
-            res.json(user);
+    var user = req.body;
+    Budget.findOne({email:user.email}, function(err, u){
+        if(u === null){
+            res.redirect(307, "/api/sendemail");
+        }else{
+            u.name = user.name;
+            u.admin = user.admin;
+            u.save(function(err){
+                if(err){
+                    res.send(err);
+                }else{
+                    res.send("Updated.");
+                }
+            });
         }
-    });
+    })
 });
 
 router.get('/users', function(req, res, next){
     User.LoggedIn(req.cookies.u, function(loggedin){
         if(loggedin){
-            User.find({}, 'email name position', function(err, users){
+            User.find({}, 'email name admin', function(err, users){
                 if(err){
                     res.send(err);
                 }else{
@@ -148,6 +161,7 @@ router.post('/budgets', function(req, res, next){
     });
 });
 
+// Graph
 router.get('/graphdata', function(req, res, next){
     var main = {'name': "budgetapp", "children":[]};
     Budget.find(function(err, budgets){
@@ -172,6 +186,31 @@ router.get('/graphdata', function(req, res, next){
             }
             res.json(main);
         });
+    });
+});
+
+// Email
+router.post('/sendemail', function(req, res, next){
+    var email = req.body.email;
+    var name = req.body.name;
+    var urlName = encodeURIComponent(name);
+    var admin = req.body.admin;
+
+    link = sprintf("http://localhost:3000/login/edit?email=%s&name=%s&admin=%s&src=%s", email, urlName, admin, 'abcdefg');
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'alphasig@umn.edu',
+            pass: password
+        }
+    });
+
+    transporter.sendMail({
+        from: 'alphasig@umn.edu',
+        to: email,
+        subject: 'Create Budget Account',
+        html: sprintf("Hello %s, please create an account on the budget site by clicking <a href='%s'>here</a>. Thanks!", name, link)
     });
 });
 

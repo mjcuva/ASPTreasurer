@@ -1,16 +1,29 @@
-<div id='main'>
+<div id='usersMain'>
   <div id='usersTable'>
-    <h1 class='title'>Users</h1>
+    <h1 class='title'>Users | </h1><button id='addUser' ng-click='addUser()'>Add New</button>
     <table style='width:100%;'>
       <tr>
-        <th id='username'>Name</th>
-        <th id='userposition'>Position</th>
-        <th id='useremail'>Email</th>
+        <th id='username'><a href='#' ng-click='predicate="name"; reverse=!reverse'>Name</a></th>
+        <th id='email'><a href='#' ng-click='predicate="email"; reverse=!reverse'>Email</a></th>
+        <th id='admin'>Admin</th>
       </tr>
-      <tr ng-repeat='user in users'>
-        <td>{{user.name}}</td>
-        <td>{{user.position}}</td>
-        <td>{{user.email}}</td>
+      <tr ng-repeat='user in users|orderBy:predicate:reverse'>
+
+        <!-- Name -->
+        <td ng-hide='user.editing'>{{user.name}}</td>
+        <td ng-show='user.editing'><input type='text' ng-model='user.name'></td>
+
+        <!-- Email -->
+        <td ng-hide='user.editing'>{{user.email}}</td>
+        <td ng-show='user.editing'><input type='email' ng-model='user.email'></td>
+
+        <!-- Admin -->
+        <td ng-hide='user.editing'>{{user.admin}}</td>
+        <td ng-show='user.editing'><input type='checkbox' ng-model='user.admin'></td>
+
+        <!-- Edit/Save -->
+        <td ng-hide='user.editing'><a ng-click='user.editing = true' href='#'>Edit</a></td>
+        <td ng-show='user.editing'><a ng-click='save(user)' href='#'>Save</a></td>   
       </tr>
     </table>
   </div>

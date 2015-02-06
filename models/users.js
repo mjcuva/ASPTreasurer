@@ -4,8 +4,8 @@ var UserSchema = new mongoose.Schema({
     email:    {type: String, required: true},
     name:     {type: String, required: true},
     pw_hash:  {type: String, required: true},
-    name:     {type: String, required: true},
-    position: String
+    paid:     {type: Number, default: 0},
+    admin:    {type: Boolean, required: true, default: false}
 });
 
 var passwordHash = require('password-hash');

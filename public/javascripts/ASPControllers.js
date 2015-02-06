@@ -28,7 +28,7 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
         $scope.predicate = '-date';
 
         $scope.authorized = function(){
-            if($scope.user.position === "Treasurer" || $scope.user.position === 'President' || $scope.user.position === 'Vice President'){
+            if($scope.user.admin === true){
                 return true;
             }else{
                 return false;
@@ -125,7 +125,23 @@ ASPControllers.controller('usersCtrl', ['$scope', '$http', function($scope, $htt
 
     $http.get('/api/users').success(function(data, status, header, config){
         $scope.users = data;
+        $scope.users.forEach(function(u){
+            u.editing = false;
+        });
     });
+
+    $scope.addUser = function(){
+        $scope.users.push({"name":"", "email":"", "admin": false, "editing":true})
+    }
+
+    $scope.save = function(u){
+        // Save
+        u.editing = false;
+        $http.post('/api/users', u).success(function(data, status, header, config){
+            console.log(data);
+        });
+    }
+
 }]);
 
 totalBudget = function(input){
