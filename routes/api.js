@@ -176,10 +176,10 @@ router.get('/graphdata', function(req, res, next){
                     if(transaction.position === budget.position){
                         totalUsed += transaction.cost;
                         used.children.push({"name":transaction.description, "size":transaction.cost});
-                        used.size = totalUsed;
+                        used.size = Math.max(totalUsed, budget.amount);
                     }
                 }
-                var unused = {"name": "Unused", "size": budget.amount - totalUsed};
+                var unused = {"name": "Unused", "size": Math.max(budget.amount - totalUsed, 0)};
                 budgetJson.children.push(unused);
                 budgetJson.children.push(used);
                 main.children.push(budgetJson);
