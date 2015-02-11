@@ -12,6 +12,7 @@ describe('Transactions', function(){
             mongoose.connect(config.MONGO_TEST, function(err){
                 if(err){
                     console.log(err);
+                    done();
                 }else{
                     console.log("Connected to TestDB")
                     done();
