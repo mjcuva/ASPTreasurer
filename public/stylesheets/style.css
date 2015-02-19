@@ -196,8 +196,8 @@ circle {
 #legend {
   padding: 10px 0 0 3px;
   position: absolute;
-  left: 50%;
-  margin-left: -600px;
+  /*left: 50%;*/
+  /*margin-left: -600px;*/
   z-index: -100;
 }
 
@@ -218,7 +218,7 @@ circle {
 
 #info {
     position: absolute;
-    right: 150px;
+    right: 2%;
     top: 200px;
     font-family: hnul;
     font-size: 40px;
