@@ -219,7 +219,7 @@ circle {
 #info {
     position: absolute;
     right: 2%;
-    top: 200px;
+    top: 100px;
     font-family: hnul;
     font-size: 40px;
     z-index: -100;
