@@ -209,8 +209,8 @@ circle {
 #mouse {
     position: absolute;
     font-size: 30px;
-    right: 150px;
-    top: 275px;
+    right: 2%;
+    top: 175px;
     font-family: hnul;
     text-align: left;
     z-index: -100;
