@@ -9,5 +9,5 @@ Keep track of payments
 	- Users should be able to see their payment history
 
 Bugs:
-	- Adding to angular rows 
+  - Editing Transactions sometimes creates duplicate
 
