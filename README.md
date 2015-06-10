@@ -1,4 +1,4 @@
 ASPTreasurer
 ============
 
-Treasurer Portal for Alpha Sigma Phi Rho Chapter
+Treasurer Portal for the Alpha Sigma Phi Rho Colony at the University of Minnesota. 
