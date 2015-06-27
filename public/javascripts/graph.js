@@ -1,4 +1,4 @@
-function createGraph(elem, data){
+function createGraph(elem, semester){
   $("svg").remove();
   var width = d3.select("#graph").style('width').replace('px',''), height = d3.select("#graph").style('height').replace('px','')
   var margin = {top: height / 2, right: width/ 2, bottom: height / 2, left: width / 2},
@@ -49,7 +49,7 @@ function createGraph(elem, data){
       .innerRadius(function(d) { return radius / 3 * d.depth; })
       .outerRadius(function(d) { return radius / 3 * (d.depth + 1) - 1; });
 
-  d3.json('api/graphdata', function(root){
+  d3.json('api/graphdata?sem='+semester, function(root){
 
     // Compute the initial layout on the entire tree to sum sizes.
     // Also compute the full name and fill color for each node,

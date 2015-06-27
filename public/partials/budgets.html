@@ -1,6 +1,7 @@
 <div id='budgetMain'>
   <div id='budgetTable'>
     <h1 class='title' id='budgetTitle'>Budget | </h1><button id='addBudget' ng-click="addBudget()">Add New</button>
+    <select ng-change='changeSelectedSemester()' ng-options='semester for semester in semesters' ng-model='selectedSemester'></select>
     <table style='width:100%;' ng-show='budgets.length > 0'>
       <tr>
         <th id='budgetPosition'><a href='#' ng-click='predicate="position"; reverse=!reverse'>Position</a></th>
