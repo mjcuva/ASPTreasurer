@@ -24,7 +24,8 @@ router.get('/currentuser', function(req, res, next){
 
 // Transactions
 router.get('/transactions', function(req, res, next){
-    Transaction.find(function(err, transactions){
+    var semester = req.query.sem;
+    Transaction.find({"semester" : semester}, function(err, transactions){
         if(err){
             res.send(err);
         }else{
@@ -50,6 +51,7 @@ router.post('/transactions', function(req, res, next){
             trans.date = req.body.date;
             trans.description = req.body.description;
             trans.position = req.body.position;
+            trans.semester = req.body.semester;
             trans.save(function(err){
                 if(err){
                     res.send(err);
@@ -120,7 +122,8 @@ router.get('/users', function(req, res, next){
 // Budgets
 
 router.get('/budgets', function(req, res, next){
-    Budget.find(function(err, budgets){
+    var semester = req.query.sem.replace('%20', ' ');
+    Budget.find({'semester':semester}, function(err, budgets){
         if(err){
             res.send(err);
         }else{
@@ -164,8 +167,9 @@ router.post('/budgets', function(req, res, next){
 // Graph
 router.get('/graphdata', function(req, res, next){
     var main = {'name': "budgetapp", "children":[]};
-    Budget.find(function(err, budgets){
-        Transaction.find(function(err, transactions){
+    var semester = req.query.sem.replace('%20', ' ');
+    Budget.find({"semester" : semester}, function(err, budgets){
+        Transaction.find({"semester":semester}, function(err, transactions){
             for(budgetIndex in budgets){
                 budget = budgets[budgetIndex];
                 var budgetJson = {"name": budget.position, "type":"position", "size":budget.amount, children:[]};

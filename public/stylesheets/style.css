@@ -224,3 +224,8 @@ circle {
     font-size: 40px;
     z-index: -100;
 }
+
+#selectSem {
+    vertical-align: middle;
+    margin-bottom: 10px;
+}

@@ -16,11 +16,14 @@ var positions = ['President',
                  'Membership Education',
                  'Alumni',
                  'Athletic',
-                 'Brotherhood'];
+                 'Brotherhood', 
+                 'House Manager'];
 
 ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($scope, $http, $filter){
 
     $scope.transactions = [];
+    $scope.semesters = ['Fall 2015', 'Spring 2015'];
+    $scope.selectedSemester = $scope.semesters[0];
     
     $http.get('/api/currentuser').success(function(data, status, headers, config){
         $scope.user = data;
@@ -36,17 +39,28 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
         }
     });
 
-    $http.get('/api/transactions').success(function(data, status, headers, config){
-        $scope.transactions = data;
-        $scope.transactions.forEach(function(t){
-            t.editing = false;
-            t.date = new Date(t.date);
+    $scope.selectNewSemester = function(){
+        getTransactions();
+        getBudget();
+        createGraph("#graph", $scope.selectedSemester);
+    }
+
+    // Made function so it can update on select change
+    function getTransactions(){
+        $http.get('/api/transactions?sem=' + $scope.selectedSemester).success(function(data, status, headers, config){
+            $scope.transactions = data;
+            $scope.transactions.forEach(function(t){
+                t.editing = false;
+                t.date = new Date(t.date);
+            });
+            $scope.totalSpent = totalTransactions($scope.transactions);
         });
-        $scope.totalSpent = totalTransactions($scope.transactions);
-    });
+    }
 
     $scope.addTransaction = function(){
-        $scope.transactions.push({'cost':0, 'date':new Date(), 'description':'', 'position':positions[0], 'editing':true});
+        $scope.selectedSemester = "Fall 2015";
+        getTransactions();
+        $scope.transactions.push({'cost':0, 'date':new Date(), 'description':'', 'position':positions[0], 'editing':true, "semester": "Fall 2015"});
     }
 
     $scope.positions = positions;
@@ -59,7 +73,7 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
         transaction.editing = false;
         $http.post('/api/transactions', transaction).success(function(data, status, headers, config){
             console.log(data);
-            createGraph('#graph');
+            createGraph('#graph', $scope.selectedSemester);
         });
     }
 
@@ -71,15 +85,21 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
                 $scope.transactions.splice(index, 1);
             }
             console.log(data);
-            createGraph('#graph');
+            createGraph('#graph', $scope.selectedSemester);
         });
     }
 
     // Get Budget
-    $http.get('/api/budgets').success(function(data, status, header, config){
-        budgets = data;
-        $scope.totalBudget = totalBudget(budgets);
-    });
+    function getBudget(){
+        $http.get('/api/budgets?sem=' + $scope.selectedSemester).success(function(data, status, header, config){
+            budgets = data;
+            $scope.totalBudget = totalBudget(budgets);
+        });
+    }
+
+    getTransactions();
+    getBudget();
+    
 
 }]);
 
@@ -89,10 +109,17 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
 
     $scope.budgets = [];
 
+    $scope.semesters = ['Fall 2015', 'Spring 2015'];
+    $scope.selectedSemester = $scope.semesters[0];
+
+    $scope.changeSelectedSemester = function(){
+        getBudgets();
+    }
+
     $scope.predicate = 'position';
 
     $scope.addBudget = function(){
-        $scope.budgets.push({"position": positions[0], "amount":0, editing: true, "semester": "Spring 2015"});
+        $scope.budgets.push({"position": positions[0], "amount":0, editing: true, "semester": "Fall 2015"});
     }
 
     $scope.edit = function(budget){
@@ -107,14 +134,17 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
         });
     }
 
-    $http.get('/api/budgets').success(function(data, status, header, config){
-        $scope.budgets = data;
-        $scope.budgets.forEach(function(b){
-            b.editing = false;
-        });
+    function getBudgets(){
+        $http.get('/api/budgets?sem='+$scope.selectedSemester).success(function(data, status, header, config){
+            $scope.budgets = data;
+            $scope.budgets.forEach(function(b){
+                b.editing = false;
+            });
 
-        $scope.total = totalBudget($scope.budgets);
-    });
+            $scope.total = totalBudget($scope.budgets);
+        });
+    }
+    
 
     $scope.total = 0
     
