@@ -1,3 +1,4 @@
+
 var ASPControllers = angular.module('ASPControllers', []);
 
 var positions = ['President',
@@ -36,14 +37,14 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
             }else{
                 return false;
             }
-        }
+        };
     });
 
     $scope.selectNewSemester = function(){
         getTransactions();
         getBudget();
         createGraph("#graph", $scope.selectedSemester);
-    }
+    };
 
     // Made function so it can update on select change
     function getTransactions(){
@@ -61,13 +62,13 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
         $scope.selectedSemester = "Fall 2015";
         getTransactions();
         $scope.transactions.push({'cost':0, 'date':new Date(), 'description':'', 'position':positions[0], 'editing':true, "semester": "Fall 2015"});
-    }
+    };
 
     $scope.positions = positions;
 
     $scope.edit = function(transaction){
         transaction.editing = true;
-    }
+    };
 
     $scope.save = function(transaction){
         transaction.editing = false;
@@ -75,7 +76,7 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
             console.log(data);
             createGraph('#graph', $scope.selectedSemester);
         });
-    }
+    };
 
     $scope.delete = function(transaction){
         console.log(transaction);
@@ -87,7 +88,7 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
             console.log(data);
             createGraph('#graph', $scope.selectedSemester);
         });
-    }
+    };
 
     // Get Budget
     function getBudget(){
@@ -114,17 +115,17 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
 
     $scope.changeSelectedSemester = function(){
         getBudgets();
-    }
+    };
 
     $scope.predicate = 'position';
 
     $scope.addBudget = function(){
         $scope.budgets.push({"position": positions[0], "amount":0, editing: true, "semester": "Fall 2015"});
-    }
+    };
 
     $scope.edit = function(budget){
         budget.editing = true;
-    }
+    };
 
     $scope.save = function(budget){
         budget.editing = false;
@@ -132,7 +133,7 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
             console.log(data);
             $scope.total = totalBudget($scope.budgets);
         });
-    }
+    };
 
     function getBudgets(){
         $http.get('/api/budgets?sem='+$scope.selectedSemester).success(function(data, status, header, config){
@@ -146,7 +147,7 @@ ASPControllers.controller('budgetCtrl', ['$scope', '$http', function($scope, $ht
     }
     
 
-    $scope.total = 0
+    $scope.total = 0;
     
 }]);
 
@@ -161,8 +162,8 @@ ASPControllers.controller('usersCtrl', ['$scope', '$http', function($scope, $htt
     });
 
     $scope.addUser = function(){
-        $scope.users.push({"name":"", "email":"", "admin": false, "editing":true})
-    }
+        $scope.users.push({"name":"", "email":"", "admin": false, "editing":true});
+    };
 
     $scope.save = function(u){
         // Save
@@ -170,23 +171,23 @@ ASPControllers.controller('usersCtrl', ['$scope', '$http', function($scope, $htt
         $http.post('/api/users', u).success(function(data, status, header, config){
             console.log(data);
         });
-    }
+    };
 
 }]);
 
 totalBudget = function(input){
     var total = 0;
-    for(i in input){
+    for(var i in input){
         total += parseInt(input[i].amount);
     }
     return total;
-}
+};
 
 totalTransactions = function(trans){
     var total = 0;
-    for(i in trans){
-        total += parseInt(trans[i].cost)
+    for(var i in trans){
+        total += parseInt(trans[i].cost);
     }
     return total;
-}
+};
 

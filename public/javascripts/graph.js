@@ -1,6 +1,6 @@
 function createGraph(elem, semester){
   $("svg").remove();
-  var width = d3.select("#graph").style('width').replace('px',''), height = d3.select("#graph").style('height').replace('px','')
+  var width = d3.select("#graph").style('width').replace('px',''), height = d3.select("#graph").style('height').replace('px','');
   var margin = {top: height / 2, right: width/ 2, bottom: height / 2, left: width / 2},
       radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
 
@@ -45,7 +45,7 @@ function createGraph(elem, semester){
 
   var arc = d3.svg.arc()
       .startAngle(function(d) { return d.x; })
-      .endAngle(function(d) { return d.x + d.dx - .01 / (d.depth + .5); })
+      .endAngle(function(d) { return d.x + d.dx - 0.01 / (d.depth + 0.5); })
       .innerRadius(function(d) { return radius / 3 * d.depth; })
       .outerRadius(function(d) { return radius / 3 * (d.depth + 1) - 1; });
 
@@ -82,7 +82,7 @@ function createGraph(elem, semester){
       .enter().append("path")
         .attr("d", arc)
         .style("fill", function(d) { return d.fill; })
-        .style("fill-opacity", function(d) { return d.name === "Unused" || d.type === "position" ? 1 : .75; })
+        .style("fill-opacity", function(d) { return d.name === "Unused" || d.type === "position" ? 1 : 0.75; })
         .each(function(d) { this._current = updateArc(d); })
         .on("mouseover", update_hover)
         .on("mouseout", remove_hover)
@@ -111,10 +111,13 @@ function createGraph(elem, semester){
           outsideAngle = d3.scale.linear().domain([0, 2 * Math.PI]);
 
       function insideArc(d) {
-        return p.key > d.key
-            ? {depth: d.depth - 1, x: 0, dx: 0} : p.key < d.key
-            ? {depth: d.depth - 1, x: 2 * Math.PI, dx: 0}
-            : {depth: 0, x: 0, dx: 2 * Math.PI};
+        if(p.key > d.key){
+          return {depth: d.depth - 1, x: 0, dx: 0};
+        }else if(p.key < d.key){
+          return {depth: d.depth - 1, x: 2 * Math.PI, dx: 0};
+        }else{
+          return {depth: 0, x: 0, dx: 2 * Math.PI};
+        }
       }
 
       function outsideArc(d) {
@@ -125,13 +128,21 @@ function createGraph(elem, semester){
 
       // When zooming in, arcs enter from the outside and exit to the inside.
       // Entering outside arcs start from the old layout.
-      if (root === p) enterArc = outsideArc, exitArc = insideArc, outsideAngle.range([p.x, p.x + p.dx]);
+      if (root === p) {
+        enterArc = outsideArc;
+        exitArc = insideArc;
+        outsideAngle.range([p.x, p.x + p.dx]);
+      }
 
       path = path.data(partition.nodes(root).slice(1), function(d) { return d.key; });
 
       // When zooming out, arcs enter from the inside and exit to the outside.
       // Exiting outside arcs transition to the new layout.
-      if (root !== p) enterArc = insideArc, exitArc = outsideArc, outsideAngle.range([p.x, p.x + p.dx]);
+      if (root !== p){
+        enterArc = insideArc;
+        exitArc = outsideArc;
+        outsideAngle.range([p.x, p.x + p.dx]);
+      }
 
       d3.transition().duration(d3.event.altKey ? 7500 : 750).each(function() {
         path.exit().transition()
@@ -148,7 +159,7 @@ function createGraph(elem, semester){
             .each(function(d) { this._current = enterArc(d); });
 
         path.transition()
-            .style("fill-opacity", function(d) { return d.name === "Unused" || d.type === "position" ? 1 : .65; })
+            .style("fill-opacity", function(d) { return d.name === "Unused" || d.type === "position" ? 1 : 0.65; })
             .attrTween("d", function(d) { return arcTween.call(this, updateArc(d)); });
       });
     }
@@ -190,7 +201,10 @@ function createGraph(elem, semester){
 
   function key(d) {
     var k = [], p = d;
-    while (p.depth) k.push(p.name), p = p.parent;
+    while (p.depth){
+      k.push(p.name);
+      p = p.parent;
+    } 
     return k.reverse().join(".");
   }
 
@@ -215,10 +229,10 @@ function createGraph(elem, semester){
   }
 
 
-  var mouse = d3.select("#mouse")
+  var mouse = d3.select("#mouse");
     function update_hover(d)
       {
-        mouse.html("<p>$"+d.size + " " + d.name + "</p>")
+        mouse.html("<p>$"+d.size + " " + d.name + "</p>");
           mouse.transition().duration(200).style("opacity","1");
     //  mouse.attr("display", function(d) { return (d.type == "holder" ? "none" : null); }); // hide text from holder elements
       }
