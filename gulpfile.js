@@ -3,10 +3,10 @@ var gulp = require('gulp');
 // Includes
 var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
+var rimraf = require('rimraf');
 var rename = require('gulp-rename');
 var minifyCss = require('gulp-minify-css');
-var clean = require('gulp-clean');
+var uglify = require('gulp-uglify');
 
 var publicDir = 'public/';
 var jsDir = publicDir + 'javascripts/*.js';
@@ -43,7 +43,6 @@ gulp.task('build', ['lint', 'scripts', 'minify-css'])
 
 gulp.task('default', ['build', 'watch']);
 
-gulp.task('clean', function(){
-    return gulp.src(distDir, {read: false})
-    .pipe(clean());
-})
+gulp.task('clean', function(cb){
+    rimraf(distDir, cb);
+});

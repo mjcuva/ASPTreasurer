@@ -9,3 +9,10 @@ notifications:
 
 env:
   - MONGOLAB_URI=mongodb://heroku_app33472222:9ppm604nids53lqhfr96uvrhcm@ds031741.mongolab.com:31741/heroku_app33472222 MONGO_TEST=mongodb://asptest:asptest@ds041651.mongolab.com:41651/asp-test
+
+deploy:
+  provider: heroku
+  api_key: 31cd9f7c-9909-41d9-8229-f46353ec7627
+  app: alphasigs
+  on: production
+  run: npm run build
