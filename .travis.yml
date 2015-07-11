@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "stable"
 
-script: npm run build && npm test
+script: npm run clean && npm run build && npm test
 
 notifications:
   email: false
@@ -15,4 +15,4 @@ deploy:
   api_key: 31cd9f7c-9909-41d9-8229-f46353ec7627
   app: alphasigs
   on: PROD
-  run: npm run build
+  run: npm run clean && npm run build
