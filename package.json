@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "test": "mocha test",
     "build": "gulp build",
-    "clean": "gulp clean"
+    "clean": "gulp clean",
+    "postinstall": "gulp build"
   },
   "dependencies": {
     "express": "~4.9.0",
