@@ -34,7 +34,7 @@ describe('Transactions', function(){
 
     it("Should add one transaction", function(done){
 
-        var transaction = {cost:100, "date": Date.now(), description:'test', 'position':"President"};
+        var transaction = {cost:100, "date": Date.now(), description:'test', 'position':"President", "semester": "Fall 2015"};
 
         request(app)
         .post('/api/transactions')

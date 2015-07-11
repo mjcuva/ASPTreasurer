@@ -25,6 +25,9 @@ router.get('/currentuser', function(req, res, next){
 // Transactions
 router.get('/transactions', function(req, res, next){
     var semester = req.query.sem;
+    if(semester == undefined){
+        semester = "Fall 2015"
+    }
     Transaction.find({"semester" : semester}, function(err, transactions){
         if(err){
             res.send(err);
@@ -122,7 +125,12 @@ router.get('/users', function(req, res, next){
 // Budgets
 
 router.get('/budgets', function(req, res, next){
-    var semester = req.query.sem.replace('%20', ' ');
+    var semesterOriginal = req.query.sem;
+    if(semesterOriginal != undefined){
+        semester = semesterOriginal.replace('%20', " ");
+    }else{
+        semester = "Fall 2015";
+    }
     Budget.find({'semester':semester}, function(err, budgets){
         if(err){
             res.send(err);

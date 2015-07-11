@@ -30,7 +30,6 @@ gulp.task('scripts', function(){
 
 gulp.task('minify-css', function(){
     return gulp.src(cssDir)
-            .pipe(concat('all.css'))
             .pipe(minifyCss({compatibility: 'ie8'}))
             .pipe(gulp.dest(distDir));
 });

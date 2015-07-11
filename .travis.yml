@@ -9,3 +9,4 @@ notifications:
 
 env:
   - MONGOLAB_URI=mongodb://heroku_app33472222:9ppm604nids53lqhfr96uvrhcm@ds031741.mongolab.com:31741/heroku_app33472222
+  - MONGO_TEST=mongodb://asptest:asptest@ds041651.mongolab.com:41651/asp-test

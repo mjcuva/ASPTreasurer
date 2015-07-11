@@ -33,7 +33,7 @@ describe('Budgets', function(){
     });
 
     it("Should add one budget", function(done){
-        var budget = {amount:100, position:"President",semester:"Spring"};
+        var budget = {amount:100, position:"President",semester:"Fall 2015"};
 
         request(app)
         .post('/api/budgets')
@@ -43,7 +43,7 @@ describe('Budgets', function(){
             res.status.should.equal(200);
             res.body.amount.should.equal(budget.amount);
             res.body.position.should.equal("President");
-            res.body.semester.should.equal("Spring");
+            res.body.semester.should.equal("Fall 2015");
             done();
         });
     });
