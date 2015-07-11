@@ -14,5 +14,5 @@ deploy:
   provider: heroku
   api_key: 31cd9f7c-9909-41d9-8229-f46353ec7627
   app: alphasigs
-  on: production
+  on: PROD
   run: npm run build
