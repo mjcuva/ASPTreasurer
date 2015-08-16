@@ -110,6 +110,6 @@ describe('Budgets', function(){
         .end(function(err, res){
             res.body.length.should.equal(0);
             done();
-        })
-    })
+        });
+    });
 });

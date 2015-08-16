@@ -1,4 +1,3 @@
-
 var ASPControllers = angular.module('ASPControllers', []);
 
 var positions = ['President',
@@ -59,9 +58,7 @@ ASPControllers.controller('mainCtrl', ['$scope', '$http', '$filter', function($s
     }
 
     $scope.addTransaction = function(){
-        $scope.selectedSemester = "Fall 2015";
-        getTransactions();
-        $scope.transactions.push({'cost':0, 'date':new Date(), 'description':'', 'position':positions[0], 'editing':true, "semester": "Fall 2015"});
+        $scope.transactions.push({'cost':0, 'date':new Date(), 'description':'', 'position':positions[0], 'editing':true, "semester": $scope.selectedSemester});
     };
 
     $scope.positions = positions;
